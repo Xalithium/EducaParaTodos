@@ -51,9 +51,27 @@ El entorno inicial utiliza IntelliJ IDEA, JDK 21 con compilación para Java 17, 
 8. Implementar las operaciones masivas y bajas lógicas.
 9. Revisar el diseño, probar el sistema y preparar la entrega.
 
-## Ejecución
+## Base de datos
 
-Este avance contiene la portada en JSP, estilos adaptativos y el modelo entidad-relación. El catálogo, las inscripciones y la base de datos se incorporarán en etapas posteriores.
+El proyecto utiliza MariaDB, incluida en XAMPP, con una base llamada `educaparatodos_gt` y codificación `utf8mb4`. El sufijo corresponde a las iniciales del autor y permite distinguirla de otras entregas. Su estructura está compuesta por cuatro tablas:
+
+- `usuario`: datos personales, fecha de registro y estado.
+- `curso`: información del curso, tema, nivel, fecha de publicación y estado.
+- `leccion`: clases ordenadas que pertenecen a un curso.
+- `inscripcion`: relación entre usuarios y cursos.
+
+La base contiene 15 usuarios, 4 cursos, 12 lecciones y 24 inscripciones de prueba. Los estados permiten realizar bajas lógicas y la popularidad de los cursos se obtiene contando sus inscripciones activas.
+
+El archivo `database/educaparatodos.sql` contiene la estructura y los datos iniciales. Al ejecutarlo, elimina y crea nuevamente la base `educaparatodos_gt` para restaurar su contenido original.
+
+## Instalación y uso
+
+### Preparar la base de datos
+
+1. Iniciar Apache y MySQL desde el panel de XAMPP.
+2. Abrir phpMyAdmin desde el botón **Admin** de MySQL.
+3. Seleccionar **Importar**.
+4. Elegir el archivo `database/educaparatodos.sql` y ejecutar la importación.
 
 ### Desde IntelliJ IDEA
 
@@ -79,6 +97,7 @@ Después de modificar la página, detener y volver a ejecutar para reconstruirla
 - `src/main/webapp/index.jsp`: portada.
 - `src/main/webapp/css/styles.css`: estilos adaptativos.
 - `src/main/webapp/WEB-INF/web.xml`: página de inicio de la aplicación.
+- `database/educaparatodos.sql`: estructura de la base de datos y datos de prueba.
 
 ## Documentación de entrega
 
