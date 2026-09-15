@@ -2,24 +2,30 @@
 
 Proyecto académico de la asignatura **Desarrollo Web II de IPCHILE**, correspondiente a la evaluación del módulo 3, desarrollado por Gonzalo Tapia Vergara.
 
-La propuesta consiste en desarrollar una plataforma web para una organización sin fines de lucro que ofrece cursos gratuitos a comunidades desfavorecidas. Permitirá consultar cursos y sus lecciones, registrar inscripciones y administrar usuarios y cursos.
+La propuesta consiste en desarrollar una plataforma web para una organización sin fines de lucro que ofrece cursos gratuitos a comunidades desfavorecidas. El sistema estará orientado al administrador y permitirá gestionar usuarios, cursos, lecciones e inscripciones.
 
 ## Objetivo
 
 Aplicar los contenidos del curso mediante una aplicación web organizada en modelos, vistas y controladores, utilizando Java Persistence API (JPA) para el mapeo objeto-relacional y JPQL para las consultas y operaciones masivas.
 
+## Modelo entidad-relación
+
+![Modelo entidad-relación](docs/modelo-entidad-relacion.png)
+
+El modelo relaciona usuarios y cursos mediante las inscripciones. Cada curso puede contener varias lecciones. Las columnas de estado permiten realizar bajas lógicas sin eliminar la información almacenada.
+
 ## Funcionalidades previstas
 
-- Crear, consultar, editar y eliminar usuarios y cursos, según las reglas del proyecto.
+- Crear, consultar, editar, activar y desactivar usuarios y cursos.
 - Corregir el nombre y el correo electrónico de los usuarios.
 - Añadir y quitar inscripciones manualmente, incluyendo matrículas tardías.
 - Organizar las lecciones de cada curso.
 - Buscar cursos por tema, nivel de dificultad y popularidad.
-- Ejecutar actualizaciones y eliminaciones masivas de usuarios o cursos según criterios definidos.
+- Ejecutar actualizaciones masivas y bajas lógicas de usuarios o cursos según criterios definidos.
 - Incorporar páginas de inicio, búsqueda, perfil de usuario y detalle de curso.
 - Adaptar las pantallas a dispositivos móviles y computadores.
 
-La definición de popularidad, los campos editables de los cursos y los criterios de las operaciones masivas se establecerán durante el diseño del modelo de datos.
+La popularidad de cada curso se calculará a partir de sus inscripciones activas. El nivel del curso no se modificará después de su creación.
 
 ## Tecnologías propuestas
 
@@ -31,22 +37,23 @@ De acuerdo con los apuntes de la asignatura, se considera utilizar:
 - JPQL para consultar y modificar los datos.
 - Git y GitHub para registrar el desarrollo.
 
-El entorno inicial utiliza IntelliJ IDEA, JDK 21 con compilación para Java 17, Maven y Apache Tomcat 10.1.59. La base de datos se configurará en una etapa posterior.
+El entorno inicial utiliza IntelliJ IDEA, JDK 21 con compilación para Java 17, Maven y Apache Tomcat 10.1.59. La persistencia se configurará con MariaDB mediante XAMPP.
 
 ## Desarrollo por etapas
 
 1. Definir los requisitos y el alcance.
 2. Preparar la estructura del proyecto y una primera página ejecutable.
-3. Implementar las entidades y la conexión a la base de datos.
-4. Desarrollar las operaciones CRUD de usuarios.
-5. Desarrollar la gestión de cursos y lecciones.
-6. Incorporar inscripciones y búsquedas con JPQL.
-7. Implementar las operaciones masivas.
-8. Revisar el diseño, probar el sistema y completar la documentación.
+3. Diseñar el modelo entidad-relación.
+4. Crear la base de datos e implementar las entidades con JPA.
+5. Desarrollar las operaciones CRUD de usuarios.
+6. Desarrollar la gestión de cursos y lecciones.
+7. Incorporar inscripciones y búsquedas con JPQL.
+8. Implementar las operaciones masivas y bajas lógicas.
+9. Revisar el diseño, probar el sistema y preparar la entrega.
 
 ## Ejecución
 
-Este avance contiene la portada en JSP y estilos adaptativos. El catálogo, las inscripciones y la base de datos se incorporarán en etapas posteriores.
+Este avance contiene la portada en JSP, estilos adaptativos y el modelo entidad-relación. El catálogo, las inscripciones y la base de datos se incorporarán en etapas posteriores.
 
 ### Desde IntelliJ IDEA
 
@@ -75,7 +82,7 @@ Después de modificar la página, detener y volver a ejecutar para reconstruirla
 
 ## Documentación de entrega
 
-La entrega incluirá el código fuente y un documento explicativo con el diseño, el funcionamiento, capturas de las vistas y ejemplos de consultas JPQL ejecutadas.
+La entrega incluirá el código fuente, el modelo entidad-relación, el script SQL con datos de prueba y las instrucciones necesarias para ejecutar el proyecto localmente.
 
 ## Material de referencia
 

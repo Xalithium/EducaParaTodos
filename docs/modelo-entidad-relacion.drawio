@@ -1,0 +1,55 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="UIi0VWiH6rUrhtlhAHgI">
+    <mxGraphModel dx="1170" dy="620" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="19kTeEuVGg5Pj1NCd2TK-1" parent="1" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" value="INSCRIPCION" vertex="1">
+          <mxGeometry height="150" width="160" x="170" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="19kTeEuVGg5Pj1NCd2TK-2" parent="19kTeEuVGg5Pj1NCd2TK-1" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" value="id_inscripcion (PK)&lt;div&gt;id_usuario (FK)&lt;/div&gt;&lt;div&gt;id_curso (FK)&lt;/div&gt;&lt;div&gt;fecha_inscripcion&lt;/div&gt;&lt;div&gt;activa&lt;/div&gt;&lt;div&gt;UK (id_usuario, id_curso)&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="160" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="19kTeEuVGg5Pj1NCd2TK-3" parent="1" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" value="LECCION" vertex="1">
+          <mxGeometry height="150" width="160" x="545" y="428" as="geometry" />
+        </mxCell>
+        <mxCell id="19kTeEuVGg5Pj1NCd2TK-4" parent="19kTeEuVGg5Pj1NCd2TK-3" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" value="id_leccion (PK)&lt;div&gt;id_curso (FK)&lt;/div&gt;&lt;div&gt;titulo&lt;/div&gt;&lt;div&gt;contenido&lt;/div&gt;&lt;div&gt;orden&lt;/div&gt;&lt;div&gt;activa&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="160" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="19kTeEuVGg5Pj1NCd2TK-13" edge="1" parent="1" source="19kTeEuVGg5Pj1NCd2TK-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERzeroToMany;endFill=0;startSize=12;endSize=20;startArrow=ERmandOne;startFill=0;" target="19kTeEuVGg5Pj1NCd2TK-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="465" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="19kTeEuVGg5Pj1NCd2TK-15" edge="1" parent="1" source="19kTeEuVGg5Pj1NCd2TK-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERzeroToMany;endFill=0;startSize=12;endSize=20;startArrow=ERmandOne;startFill=0;" target="19kTeEuVGg5Pj1NCd2TK-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="470" y="513" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="19kTeEuVGg5Pj1NCd2TK-5" parent="1" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" value="CURSO" vertex="1">
+          <mxGeometry height="160" width="160" x="350" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="19kTeEuVGg5Pj1NCd2TK-6" parent="19kTeEuVGg5Pj1NCd2TK-5" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" value="id_curso (PK)&lt;div&gt;titulo&lt;/div&gt;&lt;div&gt;descripcion&lt;/div&gt;&lt;div&gt;tema&lt;/div&gt;&lt;div&gt;nivel&lt;/div&gt;&lt;div&gt;fecha_publicacion&lt;/div&gt;&lt;div&gt;activo&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="160" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="19kTeEuVGg5Pj1NCd2TK-7" parent="1" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" value="USUARIO" vertex="1">
+          <mxGeometry height="140" width="160" x="30" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="19kTeEuVGg5Pj1NCd2TK-8" parent="19kTeEuVGg5Pj1NCd2TK-7" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;whiteSpace=wrap;" value="id_usuario (PK)&lt;br&gt;nombre&lt;br&gt;correo (UK)&lt;div&gt;fecha_registro&lt;/div&gt;&lt;div&gt;activo&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="160" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="19kTeEuVGg5Pj1NCd2TK-11" edge="1" parent="1" source="19kTeEuVGg5Pj1NCd2TK-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERzeroToMany;endFill=0;endSize=20;startSize=12;startArrow=ERmandOne;startFill=0;" target="19kTeEuVGg5Pj1NCd2TK-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="110" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
