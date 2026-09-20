@@ -33,7 +33,8 @@ De acuerdo con los apuntes de la asignatura, se considera utilizar:
 
 - Java y Servlets para procesar las solicitudes.
 - JSP, HTML y CSS para las vistas.
-- JPA para gestionar la persistencia.
+- JPA con Hibernate para gestionar la persistencia.
+- MariaDB para almacenar la información.
 - JPQL para consultar y modificar los datos.
 - Git y GitHub para registrar el desarrollo.
 
@@ -64,6 +65,8 @@ La base contiene 15 usuarios, 4 cursos, 12 lecciones y 24 inscripciones de prueb
 
 El archivo `database/educaparatodos.sql` contiene la estructura y los datos iniciales. Al ejecutarlo, elimina y crea nuevamente la base `educaparatodos_gt` para restaurar su contenido original.
 
+Las tablas están relacionadas con las entidades JPA `Usuario`, `Curso`, `Leccion` e `Inscripcion`. Hibernate valida que el modelo Java coincida con la estructura existente, pero no crea ni modifica las tablas.
+
 ## Instalación y uso
 
 ### Preparar la base de datos
@@ -91,9 +94,12 @@ mvn package cargo:run
 
 Después de modificar la página, detener y volver a ejecutar para reconstruirla. Los archivos generados quedan en `target/`, excluido de Git.
 
-### Archivos iniciales
+### Archivos principales
 
 - `pom.xml`: compilación, empaquetado web e inicio de Tomcat.
+- `src/main/java/cl/ipchile/educaparatodos/modelo/`: entidades JPA.
+- `src/main/resources/META-INF/persistence.xml`: conexión con MariaDB.
+- `src/test/java/cl/ipchile/educaparatodos/PersistenciaTest.java`: comprobación de la conexión y las consultas JPA, sin depender de la cantidad de registros. Requiere MySQL de XAMPP iniciado y la base de datos importada.
 - `src/main/webapp/index.jsp`: portada.
 - `src/main/webapp/css/styles.css`: estilos adaptativos.
 - `src/main/webapp/WEB-INF/web.xml`: página de inicio de la aplicación.
