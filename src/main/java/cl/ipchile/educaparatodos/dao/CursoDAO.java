@@ -15,10 +15,32 @@ public class CursoDAO {
         this.fabrica = fabrica;
     }
 
-    public List<Curso> listar() {
+    public List<Curso> listar(String tema, String nivel, int minimo, String orden) {
+        if (minimo < 0) throw new IllegalArgumentException("El mínimo de inscritos no puede ser negativo.");
+        if (!nivel.isEmpty()) Validacion.nivel(nivel);
         try (EntityManager manejador = fabrica.createEntityManager()) {
-            return manejador.createQuery("SELECT c FROM Curso c ORDER BY c.titulo, c.id", Curso.class)
+            String jpql = "SELECT c FROM Curso c LEFT JOIN c.inscripciones i ON i.activa = true "
+                    + "WHERE (LOWER(c.tema) LIKE :tema OR LOWER(c.titulo) LIKE :tema) "
+                    + "AND (:nivel = '' OR c.nivel = :nivel) "
+                    + "GROUP BY c HAVING COUNT(i) >= :minimo ";
+            jpql += "popularidad".equals(orden)
+                    ? "ORDER BY COUNT(i) DESC, c.titulo, c.id" : "ORDER BY c.titulo, c.id";
+            return manejador.createQuery(jpql, Curso.class)
+                    .setParameter("tema", "%" + tema.strip().toLowerCase(java.util.Locale.ROOT) + "%")
+                    .setParameter("nivel", nivel).setParameter("minimo", (long) minimo).getResultList();
+        }
+    }
+
+    public java.util.Map<Long, Long> cantidadesInscritos() {
+        try (EntityManager manejador = fabrica.createEntityManager()) {
+            var filas = manejador.createQuery(
+                    "SELECT i.curso.id, COUNT(i) FROM Inscripcion i WHERE i.activa = true GROUP BY i.curso.id", Object[].class)
                     .getResultList();
+            java.util.Map<Long, Long> cantidades = new java.util.HashMap<>();
+            for (Object[] fila : filas) {
+                cantidades.put((Long) fila[0], (Long) fila[1]);
+            }
+            return cantidades;
         }
     }
     public Curso buscar(Long id) {

@@ -57,7 +57,7 @@
                             <td><c:out value="${alumno.correo}" /></td>
                             <td><c:out value="${alumno.fechaRegistro}" /></td>
                             <td>${alumno.activo ? 'Activo' : 'Inactivo'}</td>
-                            <td><a href="${pageContext.request.contextPath}/alumnos?accion=editar&amp;id=${alumno.id}">Editar</a></td>
+                            <td><a href="${pageContext.request.contextPath}/alumnos?accion=editar&amp;id=${alumno.id}">Editar</a> · <a href="${pageContext.request.contextPath}/inscripciones?alumno=${alumno.id}">Cursos</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>

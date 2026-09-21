@@ -44,7 +44,20 @@ public class CursoServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/vistas/curso-form.jsp").forward(request, response);
                 return;
             }
-            request.setAttribute("cursos", cursoDAO.listar());
+            String tema = request.getParameter("tema");
+            String nivel = request.getParameter("nivel");
+            String minimoTexto = request.getParameter("minimo");
+            int minimo = 0;
+            if (minimoTexto != null && !minimoTexto.isBlank()) {
+                try {
+                    minimo = Integer.parseInt(minimoTexto);
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException("El mínimo de inscritos debe ser un número entero.");
+                }
+            }
+            request.setAttribute("cursos", cursoDAO.listar(tema == null ? "" : tema,
+                    nivel == null ? "" : nivel, minimo, request.getParameter("orden")));
+            request.setAttribute("cantidades", cursoDAO.cantidadesInscritos());
         } catch (IllegalArgumentException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.setAttribute("error", e.getMessage());

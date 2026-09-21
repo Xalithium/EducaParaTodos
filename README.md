@@ -102,9 +102,15 @@ Desde la portada, seleccionar **Alumnos**. El listado muestra nombre, correo, fe
 
 Seleccionar **Cursos** en la navegación para ver título, tema, nivel y estado de los cursos, ordenados por título. **Crear curso** permite indicar título, descripción, tema, nivel y estado. **Editar** permite corregir los datos y cambiar el estado; el nivel permanece fijo desde la creación. Desactivar conserva las lecciones e inscripciones.
 
+En el listado de cursos se puede filtrar por tema o título, nivel y mínimo de inscritos. **Más inscritos** ordena por popularidad; solo cuenta inscripciones activas. **Limpiar filtros** vuelve a mostrar todos los cursos.
+
 ### Gestionar lecciones
 
 En **Cursos**, seleccionar **Lecciones** en la fila correspondiente. Se muestran en orden y **Ver contenido** despliega el texto. **Añadir lección** y **Editar lección** permiten guardar título, contenido, orden (1 a 1000) y estado. El contenido es texto sencillo y conserva los saltos de línea. Desactivar una lección conserva sus datos.
+
+### Gestionar inscripciones
+
+En **Alumnos**, seleccionar **Cursos** en la fila del alumno. Elegir un curso activo y pulsar **Inscribir alumno**. **Retirar inscripción** cambia su estado sin borrar el registro. Volver a inscribirlo reactiva el mismo registro y conserva la fecha original. No se permiten inscripciones duplicadas ni nuevas matrículas de alumnos o cursos inactivos.
 
 ### Archivos principales
 
