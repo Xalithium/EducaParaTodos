@@ -94,12 +94,27 @@ mvn package cargo:run
 
 Después de modificar la página, detener y volver a ejecutar para reconstruirla. Los archivos generados quedan en `target/`, excluido de Git.
 
+### Consultar alumnos
+
+Desde la portada, seleccionar **Alumnos**. El listado muestra nombre, correo, fecha de registro y estado, ordenados por nombre. MySQL debe permanecer iniciado para consultar los datos. Para añadir un alumno, seleccionar **Registrar alumno**, completar nombre y correo y pulsar **Guardar alumno**. El correo no puede repetirse; el alumno se registra activo y con la fecha del día. Para corregir sus datos, seleccionar **Editar** en su fila. La edición permite cambiar nombre, correo y estado (Activo/Inactivo), y conserva la fecha de registro. Desactivar al alumno mantiene sus datos e inscripciones.
+
+### Consultar cursos
+
+Seleccionar **Cursos** en la navegación para ver título, tema, nivel y estado de los cursos, ordenados por título. **Crear curso** permite indicar título, descripción, tema, nivel y estado. **Editar** permite corregir los datos y cambiar el estado; el nivel permanece fijo desde la creación. Desactivar conserva las lecciones e inscripciones.
+
+### Gestionar lecciones
+
+En **Cursos**, seleccionar **Lecciones** en la fila correspondiente. Se muestran en orden y **Ver contenido** despliega el texto. **Añadir lección** y **Editar lección** permiten guardar título, contenido, orden (1 a 1000) y estado. El contenido es texto sencillo y conserva los saltos de línea. Desactivar una lección conserva sus datos.
+
 ### Archivos principales
 
 - `pom.xml`: compilación, empaquetado web e inicio de Tomcat.
 - `src/main/java/cl/ipchile/educaparatodos/modelo/`: entidades JPA.
 - `src/main/resources/META-INF/persistence.xml`: conexión con MariaDB.
 - `src/test/java/cl/ipchile/educaparatodos/PersistenciaTest.java`: comprobación de la conexión y las consultas JPA, sin depender de la cantidad de registros. Requiere MySQL de XAMPP iniciado y la base de datos importada.
+- `src/main/java/cl/ipchile/educaparatodos/dao/UsuarioDAO.java`: consulta de alumnos mediante JPQL.
+- `src/main/java/cl/ipchile/educaparatodos/controlador/UsuarioServlet.java`: atiende la ruta `/alumnos` y envía los datos a la vista.
+- `src/main/webapp/WEB-INF/vistas/alumnos.jsp`: listado de alumnos.
 - `src/main/webapp/index.jsp`: portada.
 - `src/main/webapp/css/styles.css`: estilos adaptativos.
 - `src/main/webapp/WEB-INF/web.xml`: página de inicio de la aplicación.
