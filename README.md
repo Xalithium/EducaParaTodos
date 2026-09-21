@@ -96,7 +96,9 @@ Después de modificar la página, detener y volver a ejecutar para reconstruirla
 
 ### Consultar alumnos
 
-Desde la portada, seleccionar **Alumnos**. El listado muestra nombre, correo, fecha de registro y estado, ordenados por nombre. MySQL debe permanecer iniciado para consultar los datos. Para añadir un alumno, seleccionar **Registrar alumno**, completar nombre y correo y pulsar **Guardar alumno**. El correo no puede repetirse; el alumno se registra activo y con la fecha del día. Para corregir sus datos, seleccionar **Editar** en su fila. La edición permite cambiar nombre, correo y estado (Activo/Inactivo), y conserva la fecha de registro. Desactivar al alumno mantiene sus datos e inscripciones.
+Desde la portada, seleccionar **Administración**. El panel reúne los accesos a **Alumnos**, **Cursos** y **Operaciones masivas**, mientras la portada conserva únicamente el contenido público del sitio.
+
+En el panel, seleccionar **Alumnos**. El listado muestra nombre, correo, fecha de registro y estado, ordenados por nombre. MySQL debe permanecer iniciado para consultar los datos. Para añadir un alumno, seleccionar **Registrar alumno**, completar nombre y correo y pulsar **Guardar alumno**. El correo no puede repetirse; el alumno se registra activo y con la fecha del día. Para corregir sus datos, seleccionar **Editar** en su fila. La edición permite cambiar nombre, correo y estado (Activo/Inactivo), y conserva la fecha de registro. Desactivar al alumno mantiene sus datos e inscripciones.
 
 ### Consultar cursos
 
@@ -112,6 +114,18 @@ En **Cursos**, seleccionar **Lecciones** en la fila correspondiente. Se muestran
 
 En **Alumnos**, seleccionar **Cursos** en la fila del alumno. Elegir un curso activo y pulsar **Inscribir alumno**. **Retirar inscripción** cambia su estado sin borrar el registro. Volver a inscribirlo reactiva el mismo registro y conserva la fecha original. No se permiten inscripciones duplicadas ni nuevas matrículas de alumnos o cursos inactivos.
 
+### Operaciones masivas
+
+Seleccionar **Operaciones** en la navegación y elegir una tarea en el menú. Cada operación tiene su propia página. El sistema permite:
+
+- Alumnos registrados antes de una fecha que no tengan inscripciones activas.
+- Cursos publicados antes de una fecha que tengan hasta la cantidad indicada de inscritos activos.
+- Desinscribir a todos los alumnos que tengan una inscripción activa en un curso seleccionado.
+
+Primero se muestra una vista previa con los registros que cumplen el criterio. Los cambios se ejecutan únicamente después de confirmarlos. Si los datos cambian entre la vista previa y la confirmación, la operación se cancela y debe revisarse nuevamente.
+
+Las bajas se implementan mediante `UPDATE` masivo y el campo de estado, siguiendo la recomendación docente de utilizar borrado lógico. No se eliminan físicamente alumnos, cursos, lecciones ni inscripciones. Al desinscribir un curso se conservan también las fechas originales.
+
 ### Archivos principales
 
 - `pom.xml`: compilación, empaquetado web e inicio de Tomcat.
@@ -120,6 +134,10 @@ En **Alumnos**, seleccionar **Cursos** en la fila del alumno. Elegir un curso ac
 - `src/test/java/cl/ipchile/educaparatodos/PersistenciaTest.java`: comprobación de la conexión y las consultas JPA, sin depender de la cantidad de registros. Requiere MySQL de XAMPP iniciado y la base de datos importada.
 - `src/main/java/cl/ipchile/educaparatodos/dao/UsuarioDAO.java`: consulta de alumnos mediante JPQL.
 - `src/main/java/cl/ipchile/educaparatodos/controlador/UsuarioServlet.java`: atiende la ruta `/alumnos` y envía los datos a la vista.
+- `src/main/java/cl/ipchile/educaparatodos/dao/MasivasDAO.java`: consultas de vista previa y actualizaciones masivas con JPQL.
+- `src/main/java/cl/ipchile/educaparatodos/controlador/MasivasServlet.java`: revisión y confirmación de operaciones masivas.
+- `src/main/java/cl/ipchile/educaparatodos/controlador/AdminServlet.java`: muestra el panel de administración.
+- `src/main/webapp/WEB-INF/vistas/admin.jsp`: accesos principales del área administrativa.
 - `src/main/webapp/WEB-INF/vistas/alumnos.jsp`: listado de alumnos.
 - `src/main/webapp/index.jsp`: portada.
 - `src/main/webapp/css/styles.css`: estilos adaptativos.

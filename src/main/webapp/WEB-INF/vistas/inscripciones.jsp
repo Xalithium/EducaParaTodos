@@ -11,13 +11,15 @@
 <body>
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 <header class="site-header">
-    <a class="brand" href="${pageContext.request.contextPath}/">
+    <a class="brand" href="${pageContext.request.contextPath}/admin">
         <span class="brand-mark" aria-hidden="true">e.</span> EducaParaTodos
     </a>
     <nav aria-label="Navegación principal">
-        <a href="${pageContext.request.contextPath}/">Inicio</a>
+        <a href="${pageContext.request.contextPath}/admin">Panel</a>
         <a href="${pageContext.request.contextPath}/alumnos" aria-current="page">Alumnos</a>
         <a href="${pageContext.request.contextPath}/cursos">Cursos</a>
+        <a href="${pageContext.request.contextPath}/operaciones">Operaciones masivas</a>
+        <a href="${pageContext.request.contextPath}/">Volver al sitio</a>
     </nav>
 </header>
 <main id="contenido" class="admin-page">

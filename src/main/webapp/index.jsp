@@ -17,8 +17,7 @@
     <nav aria-label="Navegación principal">
         <a href="#como-funciona">Cómo funciona</a>
         <a href="#nosotros">Nuestra misión</a>
-        <a href="${pageContext.request.contextPath}/alumnos">Alumnos</a>
-        <a href="${pageContext.request.contextPath}/cursos">Cursos</a>
+        <a href="${pageContext.request.contextPath}/admin">Administración</a>
     </nav>
 </header>
 <main id="contenido">

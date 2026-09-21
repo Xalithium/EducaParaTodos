@@ -29,6 +29,15 @@ public class InscripcionDAO {
         try { return em.createQuery("SELECT i FROM Inscripcion i JOIN FETCH i.usuario WHERE i.curso.id = :id ORDER BY i.usuario.nombre", Inscripcion.class).setParameter("id", id).getResultList(); }
         finally { em.close(); }
     }
+    public Inscripcion buscar(Long id) {
+        try (EntityManager em = fabrica.createEntityManager()) {
+            List<Inscripcion> lista = em.createQuery(
+                            "SELECT i FROM Inscripcion i JOIN FETCH i.usuario JOIN FETCH i.curso WHERE i.id = :id",
+                            Inscripcion.class)
+                    .setParameter("id", id).getResultList();
+            return lista.isEmpty() ? null : lista.get(0);
+        }
+    }
     public void inscribir(Long usuarioId, Long cursoId) {
         EntityManager em = fabrica.createEntityManager();
         EntityTransaction tx = em.getTransaction();
