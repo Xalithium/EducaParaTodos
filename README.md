@@ -14,7 +14,7 @@ Aplicar los contenidos del curso mediante una aplicación web organizada en mode
 
 El modelo relaciona usuarios y cursos mediante las inscripciones. Cada curso puede contener varias lecciones. Las columnas de estado permiten realizar bajas lógicas sin eliminar la información almacenada.
 
-## Funcionalidades previstas
+## Funcionalidades
 
 - Crear, consultar, editar, activar y desactivar usuarios y cursos.
 - Corregir el nombre y el correo electrónico de los usuarios.
@@ -22,14 +22,15 @@ El modelo relaciona usuarios y cursos mediante las inscripciones. Cada curso pue
 - Organizar las lecciones de cada curso.
 - Buscar cursos por tema, nivel de dificultad y popularidad.
 - Ejecutar actualizaciones masivas y bajas lógicas de usuarios o cursos según criterios definidos.
-- Incorporar páginas de inicio, búsqueda, perfil de usuario y detalle de curso.
+- Separar la portada pública del panel de administración.
+- Consultar los cursos de cada alumno y las lecciones de cada curso.
 - Adaptar las pantallas a dispositivos móviles y computadores.
 
-La popularidad de cada curso se calculará a partir de sus inscripciones activas. El nivel del curso no se modificará después de su creación.
+La popularidad de cada curso se calcula a partir de sus inscripciones activas. El nivel del curso no se modifica después de su creación.
 
-## Tecnologías propuestas
+## Tecnologías utilizadas
 
-De acuerdo con los apuntes de la asignatura, se considera utilizar:
+De acuerdo con los apuntes de la asignatura, se utilizan:
 
 - Java y Servlets para procesar las solicitudes.
 - JSP, HTML y CSS para las vistas.
@@ -38,7 +39,7 @@ De acuerdo con los apuntes de la asignatura, se considera utilizar:
 - JPQL para consultar y modificar los datos.
 - Git y GitHub para registrar el desarrollo.
 
-El entorno inicial utiliza IntelliJ IDEA, JDK 21 con compilación para Java 17, Maven y Apache Tomcat 10.1.59. La persistencia se configurará con MariaDB mediante XAMPP.
+El entorno utiliza IntelliJ IDEA, JDK 21 con compilación para Java 17, Maven y Apache Tomcat 10.1.59. La persistencia está configurada con MariaDB mediante XAMPP.
 
 ## Desarrollo por etapas
 
@@ -125,6 +126,69 @@ Seleccionar **Operaciones** en la navegación y elegir una tarea en el menú. Ca
 Primero se muestra una vista previa con los registros que cumplen el criterio. Los cambios se ejecutan únicamente después de confirmarlos. Si los datos cambian entre la vista previa y la confirmación, la operación se cancela y debe revisarse nuevamente.
 
 Las bajas se implementan mediante `UPDATE` masivo y el campo de estado, siguiendo la recomendación docente de utilizar borrado lógico. No se eliminan físicamente alumnos, cursos, lecciones ni inscripciones. Al desinscribir un curso se conservan también las fechas originales.
+
+## Ejemplos de consultas JPQL
+
+La búsqueda de cursos combina título o tema, nivel y cantidad mínima de inscritos activos. También permite ordenar el resultado por popularidad:
+
+```jpql
+SELECT c
+FROM Curso c
+LEFT JOIN c.inscripciones i ON i.activa = true
+WHERE (LOWER(c.tema) LIKE :tema OR LOWER(c.titulo) LIKE :tema)
+  AND (:nivel = '' OR c.nivel = :nivel)
+GROUP BY c
+HAVING COUNT(i) >= :minimo
+ORDER BY COUNT(i) DESC, c.titulo, c.id
+```
+
+Para mostrar los cursos disponibles para un alumno se utiliza una subconsulta que descarta aquellos donde ya tiene una inscripción activa:
+
+```jpql
+SELECT c
+FROM Curso c
+WHERE c.activo = true
+  AND NOT EXISTS (
+      SELECT i.id
+      FROM Inscripcion i
+      WHERE i.usuario.id = :usuario
+        AND i.curso = c
+        AND i.activa = true
+  )
+ORDER BY c.titulo
+```
+
+La desinscripción masiva cambia el estado de todas las inscripciones activas del curso seleccionado. Antes de ejecutar este `UPDATE`, el sistema vuelve a consultar los identificadores y los compara con la vista previa confirmada:
+
+```jpql
+UPDATE Inscripcion i
+SET i.activa = false
+WHERE i.curso.id = :curso
+  AND i.activa = true
+  AND i.id IN :ids
+```
+
+## Capturas de pantalla
+
+### Portada pública
+
+![Portada pública de EducaParaTodos](docs/capturas/portada.png)
+
+### Panel de administración
+
+![Panel de administración](docs/capturas/panel-administracion.png)
+
+### Gestión de alumnos
+
+![Listado de alumnos](docs/capturas/alumnos.png)
+
+### Búsqueda y gestión de cursos
+
+![Listado y filtros de cursos](docs/capturas/cursos.png)
+
+### Operaciones masivas
+
+![Menú de operaciones masivas](docs/capturas/operaciones-masivas.png)
 
 ### Archivos principales
 
