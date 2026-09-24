@@ -51,7 +51,15 @@ public class MasivasServlet extends HttpServlet {
         } else if ("cursos".equals(tipo)) {
             request.getRequestDispatcher("/WEB-INF/vistas/operaciones-cursos.jsp").forward(request, response);
         } else if ("inscripciones".equals(tipo)) {
-            request.setAttribute("cursos", cursos.listar("", "", 1, "titulo"));
+            try {
+                request.setAttribute("cursos", cursos.listar("", "", 1, "titulo"));
+            } catch (PersistenceException e) {
+                log("No se pudieron consultar los cursos para desinscribir", e);
+                response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
+                request.setAttribute("error", "No pudimos consultar los cursos. Comprueba que MySQL esté iniciado.");
+                request.getRequestDispatcher("/WEB-INF/vistas/operaciones.jsp").forward(request, response);
+                return;
+            }
             request.getRequestDispatcher("/WEB-INF/vistas/operaciones-inscripciones.jsp").forward(request, response);
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -81,7 +89,7 @@ public class MasivasServlet extends HttpServlet {
             log("No se pudo ejecutar la operación masiva", e);
             response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
             request.setAttribute("error", "No pudimos completar la operación. Intenta nuevamente.");
-            doGet(request, response);
+            request.getRequestDispatcher("/WEB-INF/vistas/operaciones.jsp").forward(request, response);
         }
     }
 

@@ -15,6 +15,9 @@ public class MasivasDAO {
     }
 
     private String condicion(String operacion) {
+        if (operacion == null) {
+            throw new IllegalArgumentException("Selecciona una operación válida.");
+        }
         return switch (operacion) {
             case "desactivarAlumnos" -> "u.activo = true AND u.fechaRegistro < :fecha "
                     + "AND NOT EXISTS (SELECT i.id FROM Inscripcion i "
